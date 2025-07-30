@@ -33,10 +33,6 @@ const config = {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
         },
-        destructive: {
-          DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
-        },
         muted: {
           DEFAULT: "hsl(var(--muted))",
           foreground: "hsl(var(--muted-foreground))",
@@ -44,6 +40,10 @@ const config = {
         accent: {
           DEFAULT: "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",
+        },
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
         },
         popover: {
           DEFAULT: "hsl(var(--popover))",
@@ -53,6 +53,11 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        // Custom colors inspired by Wetracked.io
+        "dark-blue": "#0A0E1A",
+        "dark-purple": "#1A0A1A",
+        "gradient-start": "#FF007F", // Pink
+        "gradient-end": "#007FFF", // Blue
       },
       borderRadius: {
         lg: "var(--radius)",
