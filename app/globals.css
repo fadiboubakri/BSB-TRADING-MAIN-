@@ -69,24 +69,3 @@
 .gradient-border {
   @apply border border-transparent bg-gradient-to-b from-pink-500 to-blue-500 bg-clip-border;
 }
-
-/* Custom styles for Wetracked.io inspiration */
-.wetracked-bg {
-  background-color: #0a0e1a; /* Dark blue background */
-}
-
-.wetracked-gradient-text {
-  background-image: linear-gradient(to right, #ff007f, #007fff); /* Pink to Blue gradient */
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  color: transparent;
-}
-
-.wetracked-button-gradient {
-  background-image: linear-gradient(to right, #007fff, #ff007f); /* Blue to Pink gradient */
-}
-
-.wetracked-button-gradient:hover {
-  background-image: linear-gradient(to right, #ff007f, #007fff); /* Reverse gradient on hover */
-}
