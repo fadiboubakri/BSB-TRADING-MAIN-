@@ -2,51 +2,75 @@
 @tailwind components;
 @tailwind utilities;
 
+/* 
+  New brand theme:
+  - Neon blue primary, pink/fuchsia accent
+  - Cinematic dark backgrounds
+  - Glass surfaces + subtle neon beams
+*/
+
 @layer base {
   :root {
-    /* Base palette */
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
-    /* Brand shift to neon blue with pink accent (manus.space inspired) */
-    --primary: 215 100% 55%; /* neon-sky blue */
+    /* Cinematic dark as default so the app looks on-brand even if theme class isn't applied */
+    --background: 222 47% 6%; /* deep night */
+    --foreground: 210 40% 98%;
+
+    --card: 223 40% 10%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 223 40% 8%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 215 100% 55%; /* neon sky blue */
     --primary-foreground: 0 0% 100%;
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
-    --accent: 300 96% 62%; /* magenta/pink accent */
+
+    --secondary: 223 36% 12%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 223 36% 14%;
+    --muted-foreground: 220 9% 70%;
+
+    --accent: 292 95% 60%; /* fuchsia/pink glow */
     --accent-foreground: 0 0% 100%;
-    --destructive: 0 84.2% 60.2%;
+
+    --destructive: 0 72% 45%;
     --destructive-foreground: 0 0% 98%;
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
+
+    --border: 223 30% 22%;
+    --input: 223 30% 22%;
     --ring: 215 100% 55%;
+
     --radius: 0.5rem;
   }
 
   .dark {
-    --background: 222 37% 6%; /* deep night */
-    --foreground: 0 0% 98%;
-    --card: 222 37% 8%;
-    --card-foreground: 0 0% 98%;
-    --popover: 222 37% 8%;
-    --popover-foreground: 0 0% 98%;
+    /* Keep dark very close to :root so toggle doesn’t break the look */
+    --background: 222 47% 6%;
+    --foreground: 210 40% 98%;
+
+    --card: 223 40% 10%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 223 40% 8%;
+    --popover-foreground: 210 40% 98%;
+
     --primary: 215 100% 55%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 222 35% 12%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 222 35% 12%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 300 96% 62%;
+
+    --secondary: 223 36% 12%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 223 36% 14%;
+    --muted-foreground: 220 9% 70%;
+
+    --accent: 292 95% 60%;
     --accent-foreground: 0 0% 100%;
-    --destructive: 0 62.8% 30.6%;
+
+    --destructive: 0 62% 40%;
     --destructive-foreground: 0 0% 98%;
-    --border: 222 35% 18%;
-    --input: 222 35% 18%;
+
+    --border: 223 30% 22%;
+    --input: 223 30% 22%;
     --ring: 215 100% 55%;
   }
 }
@@ -57,11 +81,11 @@
   }
   body {
     @apply bg-background text-foreground;
-    background-color: rgb(4, 8, 16); /* cinematic night fallback */
+    background-color: rgb(7, 12, 22);
   }
 }
 
-/* Existing utility styles */
+/* Existing helpers (kept) */
 .gradient-text {
   @apply bg-clip-text text-transparent bg-gradient-to-b from-pink-500 to-blue-500;
 }
@@ -72,59 +96,60 @@
   @apply border border-transparent bg-gradient-to-b from-pink-500 to-blue-500 bg-clip-border;
 }
 
-/* New neon + glass utilities (manus.space inspired) */
-.neon-text-blue {
+/* NEW: Neon + glass utilities inspired by the reference */
+
+.neon-text {
   background: linear-gradient(90deg, #60a5ff 0%, #22d3ee 50%, #a78bfa 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  text-shadow: 0 0 12px rgba(96, 165, 255, 0.35), 0 0 24px rgba(34, 211, 238, 0.25);
+  text-shadow: 0 0 12px rgba(96, 165, 255, 0.35), 0 0 24px rgba(34, 211, 238, 0.25), 0 0 36px rgba(167, 139, 250, 0.2);
 }
 
-.btn-gradient-glow {
-  @apply relative inline-flex items-center justify-center rounded-md font-medium;
-  @apply bg-gradient-to-r from-sky-500 via-cyan-400 to-fuchsia-500 text-white;
-  box-shadow: 0 0 24px rgba(56, 189, 248, 0.35);
-  transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
-}
-.btn-gradient-glow:hover {
-  filter: brightness(1.05);
-  transform: translateY(-1px);
-  box-shadow: 0 0 36px rgba(56, 189, 248, 0.5), 0 0 64px rgba(217, 70, 239, 0.25);
+/* Glassy top nav (used on header) */
+.glass-nav {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid hsl(var(--border) / 0.5);
+  box-shadow: 0 2px 24px rgba(56, 189, 248, 0.06), 0 8px 40px rgba(217, 70, 239, 0.04);
 }
 
-.glass-button {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04));
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: #fff;
-}
-
-.glass-chip {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.04));
-  border: 1px solid rgba(255, 255, 255, 0.16);
+/* Glass panels (used on sidebar/panels) */
+.glass-panel {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.03));
   backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-right: 1px solid hsl(var(--border) / 0.5);
 }
 
-/* Decorative beams in hero background */
-.neon-beams::before,
-.neon-beams::after {
+/* Subtle neon beams behind the app */
+body::before {
   content: "";
-  position: absolute;
+  position: fixed;
   inset: -20%;
-  background: radial-gradient(600px 300px at 70% 10%, rgba(56, 189, 248, 0.18), transparent 60%),
-    radial-gradient(400px 400px at 30% 20%, rgba(217, 70, 239, 0.16), transparent 60%);
-  filter: blur(4px);
+  z-index: -1;
   pointer-events: none;
+  background: radial-gradient(600px 400px at 75% 5%, rgba(56, 189, 248, 0.14), transparent 60%),
+    radial-gradient(500px 500px at 25% 15%, rgba(217, 70, 239, 0.12), transparent 60%),
+    radial-gradient(800px 600px at 50% 110%, rgba(59, 130, 246, 0.1), transparent 70%);
+  filter: blur(6px);
 }
 
-/* Faint brand-like labels */
-.brand-faint {
-  letter-spacing: 0.15em;
-  font-weight: 600;
-  text-transform: uppercase;
+/* Neon button helper (optional utility for special CTAs) */
+.btn-neon {
+  @apply inline-flex items-center justify-center rounded-md px-4 py-2 font-medium text-white;
+  background: linear-gradient(90deg, #38bdf8, #22d3ee 50%, #a78bfa);
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.35), 0 0 36px rgba(167, 139, 250, 0.25);
+  transition: transform .18s ease, filter .18s ease, box-shadow .18s ease;
+}
+.btn-neon:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.06);
+  box-shadow: 0 0 24px rgba(56, 189, 248, 0.5), 0 0 64px rgba(167, 139, 250, 0.35);
 }
 
-/* Accessibility helpers */
+/* Screen-reader helper (kept for safety in case not provided) */
 .sr-only {
   position: absolute;
   width: 1px;
@@ -133,5 +158,6 @@
   margin: -1px;
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
   border: 0;
 }

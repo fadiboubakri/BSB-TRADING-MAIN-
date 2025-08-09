@@ -11,7 +11,6 @@ import {
   Moon,
   Sun,
   User,
-  Settings,
   ChevronDown,
   Palette,
   AlertCircle,
@@ -19,7 +18,7 @@ import {
   Trophy,
   Shield,
   Languages,
-  Check
+  Check,
 } from "lucide-react"
 import {
   DropdownMenu,
@@ -49,14 +48,7 @@ export function Header({ className, onLogout, userRole }: HeaderProps) {
   const router = useRouter()
 
   return (
-    <header
-      className={cn(
-        "h-16 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60",
-        "flex items-center px-4 sticky top-0 z-30",
-        "shadow-sm",
-        className,
-      )}
-    >
+    <header className={cn("h-16 glass-nav", "flex items-center px-4 sticky top-0 z-30", className)}>
       {isMobile && (
         <Button variant="ghost" size="icon" onClick={toggle} className="mr-2 hover:bg-muted/50">
           <Menu className="h-5 w-5" />
@@ -168,7 +160,7 @@ export function Header({ className, onLogout, userRole }: HeaderProps) {
               <User className="mr-2 h-4 w-4" />
               <span>{language === "fr" ? "Profil" : "Profile"}</span>
             </DropdownMenuItem>
-          
+
             <DropdownMenuSeparator />
             <DropdownMenuLabel className="px-4 py-2 flex items-center gap-2">
               <Palette className="h-4 w-4" />
@@ -187,7 +179,7 @@ export function Header({ className, onLogout, userRole }: HeaderProps) {
                 </>
               )}
             </DropdownMenuItem>
-             <DropdownMenuSeparator />
+            <DropdownMenuSeparator />
             <DropdownMenuLabel className="px-4 py-2 flex items-center gap-2">
               <Languages className="h-4 w-4" />
               <span>{language === "fr" ? "Langue" : "Language"}</span>
