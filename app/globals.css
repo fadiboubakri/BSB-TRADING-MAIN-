@@ -2,16 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-/* 
-  New brand theme:
-  - Neon blue primary, pink/fuchsia accent
-  - Cinematic dark backgrounds
-  - Glass surfaces + subtle neon beams
-*/
-
 @layer base {
   :root {
-    /* Cinematic dark as default so the app looks on-brand even if theme class isn't applied */
+    /* Neon/dark cinematic theme tokens (apply globally) */
     --background: 222 47% 6%; /* deep night */
     --foreground: 210 40% 98%;
 
@@ -30,21 +23,20 @@
     --muted: 223 36% 14%;
     --muted-foreground: 220 9% 70%;
 
-    --accent: 292 95% 60%; /* fuchsia/pink glow */
+    --accent: 292 95% 60%; /* fuchsia/pink accent */
     --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 72% 45%;
+    --destructive: 0 62% 40%;
     --destructive-foreground: 0 0% 98%;
 
     --border: 223 30% 22%;
     --input: 223 30% 22%;
     --ring: 215 100% 55%;
-
     --radius: 0.5rem;
   }
 
   .dark {
-    /* Keep dark very close to :root so toggle doesn’t break the look */
+    /* Keep dark mode identical so the theme is consistent */
     --background: 222 47% 6%;
     --foreground: 210 40% 98%;
 
@@ -81,83 +73,18 @@
   }
   body {
     @apply bg-background text-foreground;
-    background-color: rgb(7, 12, 22);
   }
 }
 
-/* Existing helpers (kept) */
+/* Keep original gradient helpers only */
 .gradient-text {
   @apply bg-clip-text text-transparent bg-gradient-to-b from-pink-500 to-blue-500;
 }
+
 .gradient-bg {
   @apply bg-gradient-to-b from-pink-500/20 to-blue-500/20;
 }
+
 .gradient-border {
   @apply border border-transparent bg-gradient-to-b from-pink-500 to-blue-500 bg-clip-border;
-}
-
-/* NEW: Neon + glass utilities inspired by the reference */
-
-.neon-text {
-  background: linear-gradient(90deg, #60a5ff 0%, #22d3ee 50%, #a78bfa 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  text-shadow: 0 0 12px rgba(96, 165, 255, 0.35), 0 0 24px rgba(34, 211, 238, 0.25), 0 0 36px rgba(167, 139, 250, 0.2);
-}
-
-/* Glassy top nav (used on header) */
-.glass-nav {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-bottom: 1px solid hsl(var(--border) / 0.5);
-  box-shadow: 0 2px 24px rgba(56, 189, 248, 0.06), 0 8px 40px rgba(217, 70, 239, 0.04);
-}
-
-/* Glass panels (used on sidebar/panels) */
-.glass-panel {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.03));
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border-right: 1px solid hsl(var(--border) / 0.5);
-}
-
-/* Subtle neon beams behind the app */
-body::before {
-  content: "";
-  position: fixed;
-  inset: -20%;
-  z-index: -1;
-  pointer-events: none;
-  background: radial-gradient(600px 400px at 75% 5%, rgba(56, 189, 248, 0.14), transparent 60%),
-    radial-gradient(500px 500px at 25% 15%, rgba(217, 70, 239, 0.12), transparent 60%),
-    radial-gradient(800px 600px at 50% 110%, rgba(59, 130, 246, 0.1), transparent 70%);
-  filter: blur(6px);
-}
-
-/* Neon button helper (optional utility for special CTAs) */
-.btn-neon {
-  @apply inline-flex items-center justify-center rounded-md px-4 py-2 font-medium text-white;
-  background: linear-gradient(90deg, #38bdf8, #22d3ee 50%, #a78bfa);
-  box-shadow: 0 0 16px rgba(56, 189, 248, 0.35), 0 0 36px rgba(167, 139, 250, 0.25);
-  transition: transform .18s ease, filter .18s ease, box-shadow .18s ease;
-}
-.btn-neon:hover {
-  transform: translateY(-1px);
-  filter: brightness(1.06);
-  box-shadow: 0 0 24px rgba(56, 189, 248, 0.5), 0 0 64px rgba(167, 139, 250, 0.35);
-}
-
-/* Screen-reader helper (kept for safety in case not provided) */
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
 }
