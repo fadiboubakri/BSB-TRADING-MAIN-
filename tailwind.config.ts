@@ -53,6 +53,13 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        // Custom neon colors matching the reference
+        neon: {
+          cyan: "#00bcd4",
+          purple: "#9c27b0",
+          orange: "#ff9800",
+          pink: "#e91e63",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -68,10 +75,19 @@ const config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        glow: {
+          "0%, 100%": {
+            boxShadow: "0 0 5px currentColor, 0 0 10px currentColor, 0 0 15px currentColor",
+          },
+          "50%": {
+            boxShadow: "0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        glow: "glow 2s ease-in-out infinite alternate",
       },
     },
   },

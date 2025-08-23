@@ -30,7 +30,7 @@ export function Sidebar({ className, routes, onLogout }: SidebarProps) {
   return (
     <div
       className={cn(
-        "flex flex-col h-screen glass-panel border-r relative",
+        "flex flex-col h-screen bg-card border-r relative",
         isOpen ? "w-64" : "w-[70px]",
         isMobile && isOpen ? "fixed inset-y-0 left-0 z-50" : "",
         className,

@@ -10,7 +10,7 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata = {
   title: "Trading Bot Admin Dashboard",
   description: "Admin dashboard for managing trading bot platform",
-    generator: 'v0.dev'
+    generator: 'v0.app'
 }
 
 export default function RootLayout({
