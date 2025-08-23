@@ -28,7 +28,7 @@ export default function RegisterPage() {
     // Simulate registration
     setTimeout(() => {
       setIsLoading(false)
-      router.push("/dashboard")
+      router.push("/user/dashboard")
     }, 1000)
   }
 
@@ -41,23 +41,23 @@ export default function RegisterPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-background p-4">
-      <Card className="w-full max-w-md">
+      <Card className="w-full max-w-md neon-glow">
         <CardHeader className="space-y-1">
           <div className="flex justify-center mb-4">
             <Logo />
           </div>
-          <CardTitle className="text-2xl text-center">Create account</CardTitle>
-          <CardDescription className="text-center">Enter your information to create your account</CardDescription>
+          <CardTitle className="text-2xl text-center">Inscription</CardTitle>
+          <CardDescription className="text-center">Créez votre compte BSBridge</CardDescription>
         </CardHeader>
         <form onSubmit={handleSubmit}>
           <CardContent className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="name">Full Name</Label>
+              <Label htmlFor="name">Nom complet</Label>
               <Input
                 id="name"
                 name="name"
                 type="text"
-                placeholder="Enter your full name"
+                placeholder="Votre nom complet"
                 value={formData.name}
                 onChange={handleChange}
                 required
@@ -69,31 +69,31 @@ export default function RegisterPage() {
                 id="email"
                 name="email"
                 type="email"
-                placeholder="Enter your email"
+                placeholder="Votre email"
                 value={formData.email}
                 onChange={handleChange}
                 required
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password">Mot de passe</Label>
               <Input
                 id="password"
                 name="password"
                 type="password"
-                placeholder="Create a password"
+                placeholder="Créer un mot de passe"
                 value={formData.password}
                 onChange={handleChange}
                 required
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="confirmPassword">Confirm Password</Label>
+              <Label htmlFor="confirmPassword">Confirmer le mot de passe</Label>
               <Input
                 id="confirmPassword"
                 name="confirmPassword"
                 type="password"
-                placeholder="Confirm your password"
+                placeholder="Confirmer votre mot de passe"
                 value={formData.confirmPassword}
                 onChange={handleChange}
                 required
@@ -102,12 +102,12 @@ export default function RegisterPage() {
           </CardContent>
           <CardFooter className="flex flex-col space-y-4">
             <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading ? "Creating account..." : "Create account"}
+              {isLoading ? "Création du compte..." : "Créer le compte"}
             </Button>
             <p className="text-sm text-center text-muted-foreground">
-              Already have an account?{" "}
+              Déjà un compte ?{" "}
               <Link href="/login" className="text-primary hover:underline">
-                Sign in
+                Se connecter
               </Link>
             </p>
           </CardFooter>

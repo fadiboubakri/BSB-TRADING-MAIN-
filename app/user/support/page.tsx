@@ -1,13 +1,16 @@
 "use client"
 
+import { CardFooter } from "@/components/ui/card"
+
 import type React from "react"
 
 import { useState, useEffect } from "react"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
+import { Label } from "@/components/ui/label"
 import {
   MessageSquare,
   ExternalLink,
@@ -46,6 +49,10 @@ export default function SupportPage() {
   })
   const [searchQuery, setSearchQuery] = useState("")
   const [animateCards, setAnimateCards] = useState(false)
+  const [formData, setFormData] = useState({
+    subject: "",
+    message: "",
+  })
 
   useEffect(() => {
     // Start the animation after component mounts
@@ -74,6 +81,20 @@ export default function SupportPage() {
     setContactForm((prev) => ({
       ...prev,
       [name]: value,
+    }))
+  }
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    // Handle form submission
+    alert("Message envoyé ! Notre équipe vous répondra rapidement.")
+    setFormData({ subject: "", message: "" })
+  }
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
     }))
   }
 
@@ -113,11 +134,11 @@ export default function SupportPage() {
         </div>
 
         <div className="flex items-center gap-2">
-          <Button variant="outline" size="sm" className="gap-2">
+          <Button variant="outline" size="sm" className="gap-2 bg-transparent">
             <Calendar className="h-4 w-4" />
             <span>{language === "fr" ? "Cette semaine" : "This week"}</span>
           </Button>
-          <Button variant="outline" size="sm" className="hidden md:flex gap-2">
+          <Button variant="outline" size="sm" className="hidden md:flex gap-2 bg-transparent">
             <Download className="h-4 w-4" />
             <span>{language === "fr" ? "Exporter" : "Export"}</span>
           </Button>
@@ -342,7 +363,7 @@ export default function SupportPage() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <motion.div whileHover={{ y: -3 }} whileTap={{ scale: 0.98 }}>
-                    <Button variant="outline" className="w-full justify-start shadow" asChild>
+                    <Button variant="outline" className="w-full justify-start shadow bg-transparent" asChild>
                       <Link href="https://t.me/tradebotx" target="_blank" rel="noopener noreferrer">
                         <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
                           <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248-1.97 9.269c-.145.658-.537.818-1.084.51l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.121l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.538-.196 1.006.128.833.95z" />
@@ -353,7 +374,7 @@ export default function SupportPage() {
                   </motion.div>
 
                   <motion.div whileHover={{ y: -3 }} whileTap={{ scale: 0.98 }}>
-                    <Button variant="outline" className="w-full justify-start shadow" asChild>
+                    <Button variant="outline" className="w-full justify-start shadow bg-transparent" asChild>
                       <Link href="https://discord.gg/tradebotx" target="_blank" rel="noopener noreferrer">
                         <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
                           <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z" />
@@ -364,7 +385,7 @@ export default function SupportPage() {
                   </motion.div>
 
                   <motion.div whileHover={{ y: -3 }} whileTap={{ scale: 0.98 }}>
-                    <Button variant="outline" className="w-full justify-start shadow" asChild>
+                    <Button variant="outline" className="w-full justify-start shadow bg-transparent" asChild>
                       <Link href="https://twitter.com/tradebotx" target="_blank" rel="noopener noreferrer">
                         <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
                           <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
@@ -373,6 +394,68 @@ export default function SupportPage() {
                       </Link>
                     </Button>
                   </motion.div>
+                </CardContent>
+              </Card>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="space-y-4"
+            >
+              <Card className="neon-glow">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <MessageSquare className="h-5 w-5 text-primary" />
+                    Formulaire de Contact
+                  </CardTitle>
+                  <CardDescription>Décrivez votre problème et notre équipe vous répondra rapidement</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <form onSubmit={handleSubmit} className="space-y-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="subject">Sujet</Label>
+                      <Input
+                        id="subject"
+                        name="subject"
+                        placeholder="Décrivez brièvement votre demande"
+                        value={formData.subject}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label htmlFor="message">Message</Label>
+                      <Textarea
+                        id="message"
+                        name="message"
+                        placeholder="Décrivez votre problème en détail..."
+                        rows={6}
+                        value={formData.message}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+
+                    <Button type="submit" className="w-full">
+                      <Send className="mr-2 h-4 w-4" />
+                      Envoyer le Message
+                    </Button>
+                  </form>
+                </CardContent>
+              </Card>
+
+              <Card className="neon-glow">
+                <CardHeader>
+                  <CardTitle>Chat en Direct</CardTitle>
+                  <CardDescription>Support instantané via chat</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <Button variant="outline" className="w-full bg-transparent">
+                    Démarrer un Chat en Direct
+                  </Button>
                 </CardContent>
               </Card>
             </motion.div>
@@ -518,7 +601,7 @@ export default function SupportPage() {
 
                 <div className="mt-6 flex justify-center">
                   <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                    <Button variant="outline" className="shadow" asChild>
+                    <Button variant="outline" className="shadow bg-transparent" asChild>
                       <Link href="/user/how-it-works">
                         {language === "fr" ? "Voir la Documentation Complète" : "View Complete Documentation"}
                         <ChevronRight className="ml-1 h-4 w-4" />
@@ -548,7 +631,7 @@ export default function SupportPage() {
                     </CardDescription>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Button variant="outline" size="sm" className="gap-2">
+                    <Button variant="outline" size="sm" className="gap-2 bg-transparent">
                       <Filter className="h-4 w-4" />
                       <span>{language === "fr" ? "Filtrer" : "Filter"}</span>
                     </Button>
@@ -615,7 +698,7 @@ export default function SupportPage() {
                         </div>
                         <div>
                           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                            <Button variant="outline" size="sm" className="shadow gap-2">
+                            <Button variant="outline" size="sm" className="shadow gap-2 bg-transparent">
                               <Eye className="h-3 w-3" />
                               {language === "fr" ? "Voir" : "View"}
                             </Button>
@@ -752,7 +835,7 @@ export default function SupportPage() {
                           <p className="text-sm text-muted-foreground">{resource.description}</p>
                         </CardContent>
                         <CardFooter className="pt-2">
-                          <Button variant="outline" size="sm" className="w-full shadow" asChild>
+                          <Button variant="outline" size="sm" className="w-full shadow bg-transparent" asChild>
                             <Link
                               href={resource.link}
                               target={resource.external ? "_blank" : undefined}

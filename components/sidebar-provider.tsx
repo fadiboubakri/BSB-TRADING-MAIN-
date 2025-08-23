@@ -5,7 +5,6 @@ import { Slot } from "@radix-ui/react-slot"
 import { type VariantProps, cva } from "class-variance-authority"
 import { PanelLeft } from "lucide-react"
 import { createContext, useContext, useState, useEffect } from "react"
-import { useMediaQuery } from "@/hooks/use-mobile"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -21,7 +20,7 @@ const SIDEBAR_WIDTH_MOBILE = "18rem"
 const SIDEBAR_WIDTH_ICON = "3rem"
 const SIDEBAR_KEYBOARD_SHORTCUT = "b"
 
-type SidebarContextType = {
+interface SidebarContextType {
   isOpen: boolean
   toggle: () => void
   isMobile: boolean
@@ -29,71 +28,39 @@ type SidebarContextType = {
 
 const SidebarContext = createContext<SidebarContextType | undefined>(undefined)
 
-function useSidebar() {
+export function SidebarProvider({ children }: { children: React.ReactNode }) {
+  const [isOpen, setIsOpen] = useState(true)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+      if (window.innerWidth < 768) {
+        setIsOpen(false)
+      }
+    }
+
+    checkMobile()
+    window.addEventListener("resize", checkMobile)
+    return () => window.removeEventListener("resize", checkMobile)
+  }, [])
+
+  const toggle = () => setIsOpen(!isOpen)
+
+  return (
+    <SidebarContext.Provider value={{ isOpen, toggle, isMobile }}>
+      <TooltipProvider>{children}</TooltipProvider>
+    </SidebarContext.Provider>
+  )
+}
+
+export function useSidebar() {
   const context = useContext(SidebarContext)
   if (context === undefined) {
     throw new Error("useSidebar must be used within a SidebarProvider")
   }
   return context
 }
-
-const SidebarProviderComponent = React.forwardRef<
-  HTMLDivElement,
-  React.ComponentProps<"div"> & {
-    defaultOpen?: boolean
-    open?: boolean
-    onOpenChange?: (open: boolean) => void
-  }
->(({ defaultOpen = true, open: openProp, onOpenChange: setOpenProp, className, style, children, ...props }, ref) => {
-  const isMobile = useMediaQuery("(max-width: 768px)")
-  const [isOpen, setIsOpen] = useState(!isMobile)
-
-  useEffect(() => {
-    setIsOpen(!isMobile)
-  }, [isMobile])
-
-  const toggle = () => setIsOpen(!isOpen)
-
-  // This sets the cookie to keep the sidebar state.
-  useEffect(() => {
-    document.cookie = `${SIDEBAR_COOKIE_NAME}=${isOpen}; path=/; max-age=${SIDEBAR_COOKIE_MAX_AGE}`
-  }, [isOpen])
-
-  // Adds a keyboard shortcut to toggle the sidebar.
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === SIDEBAR_KEYBOARD_SHORTCUT && (event.metaKey || event.ctrlKey)) {
-        event.preventDefault()
-        setIsOpen(!isOpen)
-      }
-    }
-
-    window.addEventListener("keydown", handleKeyDown)
-    return () => window.removeEventListener("keydown", handleKeyDown)
-  }, [isOpen])
-
-  return (
-    <SidebarContext.Provider value={{ isOpen, toggle, isMobile }}>
-      <TooltipProvider delayDuration={0}>
-        <div
-          style={
-            {
-              "--sidebar-width": SIDEBAR_WIDTH,
-              "--sidebar-width-icon": SIDEBAR_WIDTH_ICON,
-              ...style,
-            } as React.CSSProperties
-          }
-          className={cn("group/sidebar-wrapper flex min-h-svh w-full has-[[data-variant=inset]]:bg-sidebar", className)}
-          ref={ref}
-          {...props}
-        >
-          {children}
-        </div>
-      </TooltipProvider>
-    </SidebarContext.Provider>
-  )
-})
-SidebarProviderComponent.displayName = "SidebarProviderComponent"
 
 const Sidebar = React.forwardRef<
   HTMLDivElement,
@@ -435,10 +402,12 @@ const SidebarMenuButton = React.forwardRef<
   }
 
   return (
-    <Tooltip>
-      <TooltipTrigger asChild>{button}</TooltipTrigger>
-      <TooltipContent side="right" align="center" hidden={isOpen || isMobile} {...tooltip} />
-    </Tooltip>
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger asChild>{button}</TooltipTrigger>
+        <TooltipContent side="right" align="center" hidden={isOpen || isMobile} {...tooltip} />
+      </Tooltip>
+    </TooltipProvider>
   )
 })
 SidebarMenuButton.displayName = "SidebarMenuButton"
@@ -585,30 +554,3 @@ const SidebarMenuSubButton = React.forwardRef<
   )
 })
 SidebarMenuSubButton.displayName = "SidebarMenuSubButton"
-
-export {
-  Sidebar,
-  SidebarContent,
-  SidebarFooter,
-  SidebarGroup,
-  SidebarGroupAction,
-  SidebarGroupContent,
-  SidebarGroupLabel,
-  SidebarHeader,
-  SidebarInput,
-  SidebarInset,
-  SidebarMenu,
-  SidebarMenuAction,
-  SidebarMenuBadge,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarMenuSkeleton,
-  SidebarMenuSub,
-  SidebarMenuSubButton,
-  SidebarMenuSubItem,
-  SidebarProviderComponent as SidebarProvider,
-  SidebarRail,
-  SidebarSeparator,
-  SidebarTrigger,
-  useSidebar,
-}

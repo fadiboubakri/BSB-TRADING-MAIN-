@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
+import { Badge } from "@/components/ui/badge"
 import {
   BarChart3,
   ArrowUpRight,
@@ -22,11 +23,12 @@ import {
   LineChart,
   Goal,
   Package,
+  DollarSign,
+  MessageSquare,
 } from "lucide-react"
 import Link from "next/link"
 import { useLanguage } from "@/components/language-provider"
 import { motion } from "framer-motion"
-import { Badge } from "@/components/ui/badge"
 
 export default function UserDashboard() {
   const [activeTab, setActiveTab] = useState("overview")
@@ -66,6 +68,42 @@ export default function UserDashboard() {
           </p>
         </div>
       </motion.div>
+
+      {/* Suivi des gains */}
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <Card className="neon-glow">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Gains Quotidiens</CardTitle>
+            <TrendingUp className="h-4 w-4 text-primary" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold text-primary">+€234.56</div>
+            <p className="text-xs text-muted-foreground">+12.5% depuis hier</p>
+          </CardContent>
+        </Card>
+
+        <Card className="neon-glow">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Gains Mensuels</CardTitle>
+            <DollarSign className="h-4 w-4 text-secondary" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold text-secondary">€1,234.56</div>
+            <p className="text-xs text-muted-foreground">+8.2% ce mois</p>
+          </CardContent>
+        </Card>
+
+        <Card className="neon-glow">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Capital Investi</CardTitle>
+            <DollarSign className="h-4 w-4 text-accent" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold text-accent">€5,000.00</div>
+            <p className="text-xs text-muted-foreground">Capital total</p>
+          </CardContent>
+        </Card>
+      </div>
 
       <Tabs defaultValue="overview" value={activeTab} onValueChange={setActiveTab} className="space-y-4">
         <TabsList className="w-full p-0 bg-transparent">
@@ -427,7 +465,7 @@ export default function UserDashboard() {
                       </div>
                     </div>
                   ))}
-                  <Button variant="outline" size="sm" className="w-full" asChild>
+                  <Button variant="outline" size="sm" className="w-full bg-transparent" asChild>
                     <Link href="/user/missions">
                       {language === "fr" ? "Voir toutes les missions" : "View All Missions"}
                     </Link>
@@ -436,6 +474,115 @@ export default function UserDashboard() {
               </Card>
             </motion.div>
           </motion.div>
+
+          {/* Battle Pass Progression */}
+          <Card className="neon-glow">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Trophy className="h-5 w-5 text-accent" />
+                {language === "fr" ? "Progression Battle Pass" : "Battle Pass Progression"}
+              </CardTitle>
+              <CardDescription>
+                {language === "fr"
+                  ? "Niveau 12 / 50 - Complétez des missions pour progresser"
+                  : "Level 12 / 50 - Complete missions to progress"}
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="space-y-2">
+                <div className="flex justify-between text-sm">
+                  <span>{language === "fr" ? "Niveau actuel: 12" : "Current Level: 12"}</span>
+                  <span>{language === "fr" ? "Prochaine récompense au niveau 15" : "Next reward at level 15"}</span>
+                </div>
+                <Progress value={75} className="h-2" />
+                <div className="text-xs text-muted-foreground">
+                  {language === "fr" ? "75% vers le niveau suivant" : "75% to the next level"}
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <h4 className="font-medium">
+                  {language === "fr" ? "Missions accomplies récentes:" : "Recent Completed Missions:"}
+                </h4>
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2 text-sm">
+                    <Badge variant="outline" className="text-primary">
+                      {language === "fr" ? "Complété" : "Completed"}
+                    </Badge>
+                    <span>
+                      {language === "fr" ? "Réaliser 10 trades profitables" : "Complete 10 profitable trades"}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm">
+                    <Badge variant="outline" className="text-primary">
+                      {language === "fr" ? "Complété" : "Completed"}
+                    </Badge>
+                    <span>{language === "fr" ? "Maintenir un capital > €5000" : "Maintain capital > €5000"}</span>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Récompenses débloquées */}
+          <Card className="neon-glow">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Gift className="h-5 w-5 text-secondary" />
+                {language === "fr" ? "Récompenses Débloquées" : "Unlocked Rewards"}
+              </CardTitle>
+              <CardDescription>
+                {language === "fr" ? "Vos récompenses obtenues et disponibles" : "Rewards you've earned and available"}
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid gap-3 md:grid-cols-2">
+                <div className="flex items-center gap-3 p-3 border rounded-lg">
+                  <div className="w-10 h-10 bg-primary/20 rounded-lg flex items-center justify-center">
+                    <Trophy className="h-5 w-5 text-primary" />
+                  </div>
+                  <div>
+                    <p className="font-medium">{language === "fr" ? "Badge Trader Pro" : "Trader Pro Badge"}</p>
+                    <p className="text-xs text-muted-foreground">
+                      {language === "fr" ? "Débloqué niveau 10" : "Unlocked at level 10"}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3 p-3 border rounded-lg">
+                  <div className="w-10 h-10 bg-secondary/20 rounded-lg flex items-center justify-center">
+                    <Gift className="h-5 w-5 text-secondary" />
+                  </div>
+                  <div>
+                    <p className="font-medium">{language === "fr" ? "Bonus 5% Commission" : "5% Commission Bonus"}</p>
+                    <p className="text-xs text-muted-foreground">
+                      {language === "fr" ? "Actif ce mois" : "Active this month"}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Support Button */}
+          <Card className="neon-glow">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <MessageSquare className="h-5 w-5 text-primary" />
+                {language === "fr" ? "Support Client" : "Client Support"}
+              </CardTitle>
+              <CardDescription>
+                {language === "fr"
+                  ? "Besoin d'aide ? Contactez notre équipe support"
+                  : "Need help? Contact our support team"}
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Button asChild className="w-full">
+                <Link href="/user/support">{language === "fr" ? "Accéder au Support" : "Access Support"}</Link>
+              </Button>
+            </CardContent>
+          </Card>
         </TabsContent>
 
         <TabsContent value="analytics" className="space-y-4">
