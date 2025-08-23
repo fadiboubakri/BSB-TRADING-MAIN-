@@ -10,10 +10,12 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Logo } from "@/components/logo"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
 export default function LoginPage() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [userType, setUserType] = useState("user")
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
 
@@ -21,10 +23,10 @@ export default function LoginPage() {
     e.preventDefault()
     setIsLoading(true)
 
-    // Simulate login - check if admin
+    // Simulate login
     setTimeout(() => {
       setIsLoading(false)
-      if (email.includes("admin")) {
+      if (userType === "admin") {
         router.push("/admin/dashboard")
       } else {
         router.push("/user/dashboard")
@@ -39,11 +41,23 @@ export default function LoginPage() {
           <div className="flex justify-center mb-4">
             <Logo />
           </div>
-          <CardTitle className="text-2xl text-center">Connexion</CardTitle>
-          <CardDescription className="text-center">Accédez à votre tableau de bord BSBridge</CardDescription>
+          <CardTitle className="text-2xl text-center">Connexion BSBridge</CardTitle>
+          <CardDescription className="text-center">Accédez à votre tableau de bord</CardDescription>
         </CardHeader>
         <form onSubmit={handleSubmit}>
           <CardContent className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="userType">Type de compte</Label>
+              <Select value={userType} onValueChange={setUserType}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Sélectionnez le type de compte" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="user">Utilisateur</SelectItem>
+                  <SelectItem value="admin">Administrateur</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
               <Input

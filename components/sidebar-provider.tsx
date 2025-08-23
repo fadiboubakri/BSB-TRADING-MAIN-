@@ -47,11 +47,7 @@ export function SidebarProvider({ children }: { children: React.ReactNode }) {
 
   const toggle = () => setIsOpen(!isOpen)
 
-  return (
-    <SidebarContext.Provider value={{ isOpen, toggle, isMobile }}>
-      <TooltipProvider>{children}</TooltipProvider>
-    </SidebarContext.Provider>
-  )
+  return <SidebarContext.Provider value={{ isOpen, toggle, isMobile }}>{children}</SidebarContext.Provider>
 }
 
 export function useSidebar() {

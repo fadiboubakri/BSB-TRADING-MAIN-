@@ -30,7 +30,7 @@ export function Sidebar({ className, routes, onLogout }: SidebarProps) {
   return (
     <div
       className={cn(
-        "flex flex-col h-screen bg-card border-r relative",
+        "flex flex-col h-screen bg-card border-r relative neon-glow",
         isOpen ? "w-64" : "w-[70px]",
         isMobile && isOpen ? "fixed inset-y-0 left-0 z-50" : "",
         className,
@@ -63,6 +63,12 @@ export function Sidebar({ className, routes, onLogout }: SidebarProps) {
             </Link>
           ))}
         </nav>
+      </div>
+
+      <div className="p-4 border-t">
+        <Button variant="outline" onClick={onLogout} className={cn("w-full", !isOpen && "w-10 h-10 p-0")}>
+          <span className={cn("transition-all", !isOpen && "w-0 opacity-0 hidden")}>Déconnexion</span>
+        </Button>
       </div>
     </div>
   )

@@ -1,16 +1,16 @@
-import { cn } from "@/lib/utils"
+"use client"
 
-interface LogoProps {
-  className?: string
-}
+import { Bot } from "lucide-react"
 
-export function Logo({ className }: LogoProps) {
+export function Logo() {
   return (
-    <div className={cn("flex items-center gap-2", className)}>
-      <div className="w-8 h-8 rounded-lg bg-gradient-to-r from-cyan-400 to-purple-500 flex items-center justify-center">
-        <span className="text-white font-bold text-lg">B</span>
+    <div className="flex items-center gap-2">
+      <div className="w-8 h-8 bg-gradient-to-r from-pink-500 to-purple-500 rounded-lg flex items-center justify-center">
+        <Bot className="h-5 w-5 text-white" />
       </div>
-      <span className="font-bold text-xl neon-text">BSBridge</span>
+      <span className="font-bold text-lg bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent">
+        BSBridge
+      </span>
     </div>
   )
 }

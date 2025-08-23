@@ -6,14 +6,14 @@ import { Header } from "@/components/header"
 import { LanguageProvider } from "@/components/language-provider"
 import { SidebarProvider } from "@/components/sidebar-provider"
 import { useRouter } from "next/navigation"
-import { LayoutDashboard, Trophy, Gift, MessageSquare, User, BarChart3 } from "lucide-react"
+import { Users, Trophy, Gift, Bell, Settings, LayoutDashboard } from "lucide-react"
 import { usePathname } from "next/navigation"
 
 interface LayoutProps {
   children: React.ReactNode
 }
 
-export default function UserLayout({ children }: LayoutProps) {
+export default function AdminLayout({ children }: LayoutProps) {
   const router = useRouter()
   const pathname = usePathname()
 
@@ -25,38 +25,38 @@ export default function UserLayout({ children }: LayoutProps) {
     {
       label: "Tableau de Bord",
       icon: <LayoutDashboard className="h-5 w-5" />,
-      href: "/user/dashboard",
-      active: pathname === "/user/dashboard",
+      href: "/admin/dashboard",
+      active: pathname === "/admin/dashboard",
     },
     {
-      label: "Missions",
+      label: "Utilisateurs",
+      icon: <Users className="h-5 w-5" />,
+      href: "/admin/users",
+      active: pathname.startsWith("/admin/users"),
+    },
+    {
+      label: "Battle Pass",
       icon: <Trophy className="h-5 w-5" />,
-      href: "/user/missions",
-      active: pathname.startsWith("/user/missions"),
+      href: "/admin/missions",
+      active: pathname.startsWith("/admin/missions"),
     },
     {
       label: "Récompenses",
       icon: <Gift className="h-5 w-5" />,
-      href: "/user/rewards",
-      active: pathname.startsWith("/user/rewards"),
+      href: "/admin/rewards",
+      active: pathname.startsWith("/admin/rewards"),
     },
     {
-      label: "Performance",
-      icon: <BarChart3 className="h-5 w-5" />,
-      href: "/user/performance",
-      active: pathname === "/user/performance",
+      label: "Notifications",
+      icon: <Bell className="h-5 w-5" />,
+      href: "/admin/notifications",
+      active: pathname === "/admin/notifications",
     },
     {
-      label: "Support",
-      icon: <MessageSquare className="h-5 w-5" />,
-      href: "/user/support",
-      active: pathname === "/user/support",
-    },
-    {
-      label: "Profil",
-      icon: <User className="h-5 w-5" />,
-      href: "/user/profile",
-      active: pathname === "/user/profile",
+      label: "Paramètres",
+      icon: <Settings className="h-5 w-5" />,
+      href: "/admin/settings",
+      active: pathname === "/admin/settings",
     },
   ]
 
@@ -66,7 +66,7 @@ export default function UserLayout({ children }: LayoutProps) {
         <div className="flex h-screen">
           <Sidebar routes={routes} onLogout={handleLogout} />
           <div className="flex-1 flex flex-col overflow-hidden">
-            <Header onLogout={handleLogout} userRole="user" />
+            <Header onLogout={handleLogout} userRole="admin" />
             <main className="flex-1 overflow-auto p-6">{children}</main>
           </div>
         </div>
